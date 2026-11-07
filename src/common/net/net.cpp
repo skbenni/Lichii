@@ -156,7 +156,7 @@ std::optional<Release> Release::FromJson(const nlohmann::json& json, const std::
                 std::ranges::all_of(hex, [](unsigned char c) { return std::isxdigit(c); })) {
                 info.sha256 = std::string{hex};
                 std::ranges::transform(info.sha256, info.sha256.begin(),
-                                       [](unsigned char c) { return std::tolower(c); });
+                                       [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
             }
         }
         rel.asset_info.emplace(url, std::move(info));
